@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   
   private
 
+  # its important you set_cart (create a cart) only when a line_item is created/added,
+  # otherwise you will create alot of empty carts because of users who visit products#index and bounce
+
   def set_cart
     @cart = Cart.find(session[:cart_id])
   rescue ActiveRecord::RecordNotFound
