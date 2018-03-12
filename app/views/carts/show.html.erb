@@ -1,11 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <h2>Your Pragmatic Cart</h2>
-<ul>
+
+<table>
   <% @cart.line_items.each do |item| %>
-    <li><%= item.quantity %> &times; <%= item.product.title %></li>
+    <tr>
+      <td><%= item.quantity %>&times;</td>
+      <td><%= item.product.title %></td>
+      <td class="item_price"><%= number_to_currency(sprintf("%0.02f", item.line_item_total.to_f/100)) %></td>
+    </tr>
   <% end %>
-</ul>
+    <tr class="total_line">
+      <td colspan="2">Total</td>
+      <td class="total_cell"><%= number_to_currency(sprintf("%0.02f", @cart.total_price.to_f/100)) %></td>
+    </tr>
+</table>
 
 <%= button_to 'Empty Cart', @cart, method: :delete, data: {confirm: 'Are you sure?'} %>
 
@@ -13,3 +22,5 @@
 
 <%= link_to 'Edit', edit_cart_path(@cart) %> |
 <%= link_to 'Back', carts_path %>
+
+
