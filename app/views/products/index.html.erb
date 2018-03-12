@@ -16,6 +16,7 @@
 
     <tbody>
       <% @products.each do |product| %>
+        <% cache product do %>
         <tr>
           <td><%= product.title %></td>
           <td><%= truncate(product.description, length: 80) %></td>
@@ -25,6 +26,7 @@
           <td><%= link_to 'Edit', edit_product_path(product) %></td>
           <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
