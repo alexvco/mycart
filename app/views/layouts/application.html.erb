@@ -10,5 +10,8 @@
 
   <body class='<%= controller_path.split('/').join(' ') %> <%= action_name %>'>
     <%= yield %>
+
+    <%= "<div style='margin-top:148px;'></div>".html_safe if Rails.env.development? %>
+    <%= console if Rails.env.development? %>
   </body>
 </html>
