@@ -35,6 +35,7 @@ class OrdersController < ApplicationController
       if @order.save
         @order.add_line_items_from_cart(@cart)
         Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
         format.html { redirect_to root_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
