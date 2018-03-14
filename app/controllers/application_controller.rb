@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
+  helper_method :current_user
   
   private
 
@@ -12,5 +14,15 @@ class ApplicationController < ActionController::Base
     @cart = Cart.create
     session[:cart_id] = @cart.id
   end
+
+  def authenticate_user!
+    unless User.find_by(id: session[:user_id])
+      redirect_to login_url, notice: "Please log in"
+    end
+  end
   
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+
 end
